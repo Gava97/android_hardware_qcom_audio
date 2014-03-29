@@ -112,6 +112,8 @@ ifeq ($(strip $(AUDIO_FEATURE_ENABLED_INCALL_MUSIC)),true)
     LOCAL_CFLAGS += -DINCALL_MUSIC_ENABLED
 endif
 endif
+
+ifneq ($(filter msm8974 msm8226 msm8610,$(TARGET_BOARD_PLATFORM)),)
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_COMPRESS_VOIP)),true)
     LOCAL_CFLAGS += -DCOMPRESS_VOIP_ENABLED
     LOCAL_SRC_FILES += voice_extn/compress_voip.c
@@ -123,9 +125,11 @@ ifeq ($(strip $(AUDIO_FEATURE_ENABLED_EXTN_FORMATS)),true)
 LOCAL_CFLAGS += -DAUDIO_EXTN_FORMATS_ENABLED
 endif
 
+ifneq ($(filter msm8974,$(TARGET_BOARD_PLATFORM)),)
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_SPKR_PROTECTION)),true)
     LOCAL_CFLAGS += -DSPKR_PROT_ENABLED
     LOCAL_SRC_FILES += audio_extn/spkr_protection.c
+endif
 endif
 
 ifdef MULTIPLE_HW_VARIANTS_ENABLED
@@ -133,9 +137,11 @@ ifdef MULTIPLE_HW_VARIANTS_ENABLED
   LOCAL_SRC_FILES += $(AUDIO_PLATFORM)/hw_info.c
 endif
 
+ifneq ($(filter msm8974 msm8226 msm8610,$(TARGET_BOARD_PLATFORM)),)
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_COMPRESS_CAPTURE)),true)
     LOCAL_CFLAGS += -DCOMPRESS_CAPTURE_ENABLED
     LOCAL_SRC_FILES += audio_extn/compress_capture.c
+endif
 endif
 
 ifeq ($(strip $(AUDIO_FEATURE_ENABLED_DTS_EAGLE)),true)
@@ -143,9 +149,12 @@ ifeq ($(strip $(AUDIO_FEATURE_ENABLED_DTS_EAGLE)),true)
     LOCAL_SRC_FILES += audio_extn/dts_eagle.c
 endif
 
+
+ifneq ($(filter msm8974 msm8226 msm8610,$(TARGET_BOARD_PLATFORM)),)
 ifeq ($(strip $(DOLBY_DDP)),true)
     LOCAL_CFLAGS += -DDS1_DOLBY_DDP_ENABLED
     LOCAL_SRC_FILES += audio_extn/dolby.c
+endif
 endif
 
 ifeq ($(strip $(DS1_DOLBY_DAP)),true)
